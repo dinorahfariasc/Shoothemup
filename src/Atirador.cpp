@@ -1,16 +1,23 @@
 #include "Headers/Atirador.hpp"
+#include <iostream>
+#include <cmath>
 
-Atirador::Atirador(float width, float height, float speed, int vida, float X, float Y)
+Atirador::Atirador(float width, float height, float speed, int vida, float X, float Y, const std::string& textureFile)
     : w(width),
       h(height),
       spd(speed),
       life(vida),
       posX(X),
       posY(Y),
-      shape(sf::Vector2f(width, height)),
       moving(false) {
-    shape.setFillColor(sf::Color::Cyan);
-    shape.setPosition(X, Y);
+    
+    if (!texture.loadFromFile(textureFile)) {
+        std::cerr << "Erro ao carregar a textura: " << textureFile << std::endl;
+    } else {
+        sprite.setTexture(texture);
+        sprite.setPosition(X, Y);
+        sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2); // Ajusta a origem para o centro
+    }
 }
 
 void Atirador::moveTo(float x, float y) {
@@ -36,14 +43,14 @@ void Atirador::updateMovement() {
             posY += dy;
         }
         
-        shape.setPosition(posX, posY);
+        sprite.setPosition(posX, posY);
     }
 }
 
 void Atirador::draw(sf::RenderWindow& window) {
-    window.draw(shape);
+    window.draw(sprite);
 }
 
 sf::Vector2f Atirador::getPosition() const {
-    return shape.getPosition();
+    return sprite.getPosition();
 }

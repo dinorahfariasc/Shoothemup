@@ -11,7 +11,17 @@ using namespace std;
 
 int main() {
     RenderWindow window(VideoMode(800, 600), "Game Window");
-    Atirador personagem(50.f, 50.f, 0.1, 100, 100.f, 100.f); 
+
+    // Carregar a textura de background
+    Texture backgroundTexture;
+    backgroundTexture.loadFromFile("Assets/background.png");
+
+    // Definir o sprite do background
+    Sprite backgroundSprite;
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setScale(0.5, 0.5);
+
+    Atirador personagem(50.f, 50.f, 0.1, 100, 100.f, 100.f,"Assests/Personagem/handgun.png"); 
     vector<Projetil> projeteis;
 
     while (window.isOpen()) {
