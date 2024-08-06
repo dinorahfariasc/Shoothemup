@@ -10,16 +10,7 @@ using namespace std;
 
 
 int main() {
-    RenderWindow window(VideoMode(800, 600), "Game Window");
-
-    // Carregar a textura de background
-    Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Assets/background.png");
-
-    // Definir o sprite do background
-    Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setScale(0.5, 0.5);
+    RenderWindow window(VideoMode(800, 600), "Shoothemup");
 
     Atirador personagem(30.f, 30.f, 0.1, 100, 100.f, 100.f,"Assests/Personagem/handgun.png"); 
     vector<Projetil> projeteis;
@@ -37,16 +28,22 @@ int main() {
                     }
                     break;
                 case Event::MouseButtonPressed:
-                    if (event.mouseButton.button == Mouse::Right) {
-                        personagem.moveTo(event.mouseButton.x, event.mouseButton.y);
-                    }
+                    // if (event.mouseButton.button == Mouse::Right) {
+                    //     personagem.moveTo(event.mouseButton.x, event.mouseButton.y);
+                    // }
                     if (event.mouseButton.button == Mouse::Left) {
                         Vector2f characterPos = personagem.getPosition();
-                        projeteis.push_back(Projetil(5.f, 0.08, characterPos.x + 25.f - 2.5f, characterPos.y, event.mouseButton.x, event.mouseButton.y)); // Velocidade do projétil ajustada para 2
+                        projeteis.push_back(Projetil(5.f, 0.08, characterPos.x + 25.f - 2.5f, characterPos.y, event.mouseButton.x, event.mouseButton.y)); // Adiciona um projetil ao vetor de projeteis
                     }
                     break;
             }
         }
+
+        // mover o atirador com update loop
+        if (Mouse::isButtonPressed(Mouse::Right)) {
+            personagem.moveTo(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+        }
+
 
         personagem.updateMovement();
 
@@ -56,10 +53,13 @@ int main() {
 
         window.clear();
         personagem.draw(window);
+
         for (auto& projetil : projeteis) {
             projetil.draw(window);
         }
         window.display();
     }
+
+
     return 0;
 }
