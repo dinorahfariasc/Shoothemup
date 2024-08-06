@@ -2,6 +2,10 @@
 #include <iostream>
 #include <cmath>
 
+
+using namespace sf;
+using namespace std;
+
 Atirador::Atirador(float width, float height, float speed, int vida, float X, float Y, const std::string& textureFile)
     : w(width),
       h(height),
@@ -12,7 +16,7 @@ Atirador::Atirador(float width, float height, float speed, int vida, float X, fl
       moving(false) {
     
     if (!texture.loadFromFile(textureFile)) {
-        std::cerr << "Erro ao carregar a textura: " << textureFile << std::endl;
+        cerr << "Erro ao carregar a textura: " << textureFile << endl;
     } else {
         sprite.setTexture(texture);
         sprite.setPosition(X, Y);
@@ -21,11 +25,11 @@ Atirador::Atirador(float width, float height, float speed, int vida, float X, fl
 }
 
 void Atirador::moveTo(float x, float y) {
-    targetPosition = sf::Vector2f(x, y);
+    targetPosition = Vector2f(x, y);
     float dx = x - posX;
     float dy = y - posY;
-    float length = std::sqrt(dx * dx + dy * dy);
-    direction = sf::Vector2f(dx / length, dy / length);
+    float length = sqrt(dx * dx + dy * dy);
+    direction = Vector2f(dx / length, dy / length);
     moving = true;
 }
 
@@ -34,7 +38,7 @@ void Atirador::updateMovement() {
         float dx = direction.x * spd;
         float dy = direction.y * spd;
 
-        if (std::sqrt(std::pow(targetPosition.x - posX, 2) + std::pow(targetPosition.y - posY, 2)) <= spd) {
+        if (sqrt(pow(targetPosition.x - posX, 2) + pow(targetPosition.y - posY, 2)) <= spd) {
             posX = targetPosition.x;
             posY = targetPosition.y;
             moving = false;
@@ -47,10 +51,10 @@ void Atirador::updateMovement() {
     }
 }
 
-void Atirador::draw(sf::RenderWindow& window) {
+void Atirador::draw(RenderWindow& window) {
     window.draw(sprite);
 }
 
-sf::Vector2f Atirador::getPosition() const {
+Vector2f Atirador::getPosition() const {
     return sprite.getPosition();
 }
