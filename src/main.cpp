@@ -4,18 +4,24 @@
 #include <cmath>
 #include "Headers/Atirador.hpp"
 #include "Headers/Projetil.hpp"
+#include "Headers/Inimigo.hpp"
+#include "Headers/InimigoProj.hpp"
 
 using namespace sf;
 using namespace std;
 
 
 int main() {
+    // ------------------------------------------------- INITIALIZE -------------------------------------------------  
     RenderWindow window(VideoMode(800, 600), "Shoothemup");
 
-    Atirador personagem(30.f, 30.f, 0.1, 100, 100.f, 100.f,"Assests/Personagem/handgun.png"); 
+    Inimigo inimigo(30.f, 30.f, 0.1, 100, 100.f, 50.f, "Assests/Inimigo/inimigo1.jpg");
+    Atirador personagem(30.f, 30.f, 0.1, 100, 400.f, 300.f,"Assests/Personagem/handgun.png"); 
     vector<Projetil> projeteis;
 
+    // ------------------------------------------------- MAIN LOOP -------------------------------------------------  
     while (window.isOpen()) {
+        // ------------------------------------------------- UPDATE -------------------------------------------------  
         Event event; // Inicialização da variável que captura eventos
         while (window.pollEvent(event)) {
             switch (event.type) {
@@ -53,6 +59,7 @@ int main() {
 
         window.clear();
         personagem.draw(window);
+        inimigo.draw(window);
 
         for (auto& projetil : projeteis) {
             projetil.draw(window);
