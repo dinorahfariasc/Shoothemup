@@ -18,6 +18,8 @@ int main() {
     Inimigo inimigo(30.f, 30.f, 0.1, 100, 100.f, 50.f, "Assests/Inimigo/inimigo1.jpg");
     Atirador personagem(30.f, 30.f, 0.1, 100, 400.f, 300.f,"Assests/Personagem/handgun.png"); 
     vector<Projetil> projeteis;
+    vector<InimigoProj> inimigoProjs;
+
 
     // ------------------------------------------------- MAIN LOOP -------------------------------------------------  
     while (window.isOpen()) {
@@ -32,6 +34,7 @@ int main() {
                     if (event.key.code == Keyboard::Escape) {  // Fechar a aplicação em caso de apertar 'Esc'
                         window.close();
                     }
+                
                     break;
                 case Event::MouseButtonPressed:
                     // if (event.mouseButton.button == Mouse::Right) {
@@ -39,7 +42,7 @@ int main() {
                     // }
                     if (event.mouseButton.button == Mouse::Left) {
                         Vector2f characterPos = personagem.getPosition();
-                        projeteis.push_back(Projetil(5.f, 0.08, characterPos.x + 25.f - 2.5f, characterPos.y, event.mouseButton.x, event.mouseButton.y)); // Adiciona um projetil ao vetor de projeteis
+                        projeteis.push_back(Projetil(5.f, 0.08, characterPos.x + 55.f - 2.5f, characterPos.y+ 22.f, event.mouseButton.x, event.mouseButton.y)); // Adiciona um projetil ao vetor de projeteis
                     }
                     break;
             }
@@ -49,6 +52,9 @@ int main() {
         if (Mouse::isButtonPressed(Mouse::Right)) {
             personagem.moveTo(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
         }
+        // if(Keyboard::isKeyPressed(Keyboard::W)){
+        //     inimigo.moveTo(personagem.getPosition().x, personagem.getPosition().y);
+        // }
 
 
         personagem.updateMovement();
@@ -56,10 +62,12 @@ int main() {
         for (auto& projetil : projeteis) {
             projetil.move();
         }
-
+        // ------------------------------------------------- DRAW -------------------------------------------------  
         window.clear();
         personagem.draw(window);
         inimigo.draw(window);
+        
+
 
         for (auto& projetil : projeteis) {
             projetil.draw(window);

@@ -4,8 +4,7 @@
 using namespace sf;
 using namespace std;
 
-
-InimigoProje::InimigoProje(float radius, float speed, float startX, float startY, float targetX, float targetY)
+InimigoProj::InimigoProj(float radius, float speed, float startX, float startY, float targetX, float targetY)
     : speed(speed) {
     shape.setRadius(radius);
     shape.setFillColor(sf::Color::Blue);
@@ -17,10 +16,10 @@ InimigoProje::InimigoProje(float radius, float speed, float startX, float startY
     direction = Vector2f(dx / length, dy / length);
 }
 
-void InimigoProje::move() {
+void InimigoProj::move() {
     shape.move(direction * speed);
 }
 
-void InimigoProje::draw(sf::RenderWindow& window) {
+void InimigoProj::draw(sf::RenderWindow& window) {
     window.draw(shape);
 }

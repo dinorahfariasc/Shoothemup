@@ -3,9 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
-class InimigoProje {
+class InimigoProj {
 public:
-    InimigoProje(float radius, float speed, float startX, float startY, float targetX, float targetY);
+    InimigoProj(float radius, float speed, float startX, float startY, float targetX, float targetY);
     void move();
     void draw(sf::RenderWindow& window);
 
