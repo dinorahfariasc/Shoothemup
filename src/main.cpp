@@ -6,6 +6,7 @@
 #include "Headers/Projetil.hpp"
 #include "Headers/Inimigo.hpp"
 #include "Headers/InimigoProj.hpp"
+#include "Headers/Base.hpp"
 
 using namespace sf;
 using namespace std;
@@ -17,6 +18,7 @@ int main() {
 
     Inimigo inimigo(30.f, 30.f, 0.1, 100, 100.f, 50.f, "Assests/Inimigo/inimigo1.jpg");
     Atirador personagem(30.f, 30.f, 0.1, 100, 400.f, 300.f,"Assests/Personagem/handgun.png"); 
+    Base base(500, 50, 400.f, 300.f);
     vector<Projetil> projeteis;
     vector<InimigoProj> inimigoProjs;
 
@@ -66,6 +68,7 @@ int main() {
         window.clear();
         personagem.draw(window);
         inimigo.draw(window);
+        base.draw(window);
         
 
 
